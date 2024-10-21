@@ -6,18 +6,33 @@ const CartProvider = ({ children }) => {
     
     const [cartProducts, setCartProducts] = useState([]);
 
-    const addToCart = (product) => {
-        setCartProducts(
-            [...cartProducts, product]
-        );
+    const handleAddToCart = (selectedProduct) => {
+        let newCartProducts = [];
+        const existProduct = cartProducts.find(cartProduct => cartProduct.id === selectedProduct.id);
+
+        if (existProduct) {
+            const restCartProducts = cartProducts.filter(cartProduct => cartProduct.id != existProduct.id);
+            existProduct.quantity += 1;
+            newCartProducts = [existProduct, ...restCartProducts];
+
+        } else {
+            selectedProduct.quantity = 1;
+            newCartProducts = [selectedProduct, ...cartProducts];
+          
+        }
+        setCartProducts(newCartProducts);
     }
 
-    console.log(cartProducts);
+    const handleRemoveFromCart = (selectedProduct) => {
+        const restCartProducts = cartProducts.filter(cartProduct => cartProduct.id !== selectedProduct.id);
+        setCartProducts(restCartProducts);
+    } 
 
     return (
         <CartContext.Provider value={{
             cartProducts,
-            addToCart
+            handleAddToCart,
+            handleRemoveFromCart
         }}>
             {children}
         </CartContext.Provider>

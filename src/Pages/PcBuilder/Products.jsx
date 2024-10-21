@@ -12,7 +12,7 @@ const Products = () => {
 
   return (
     <div className="grow py-8 px-3">
-      <h2 className="font-medium text-xl">Results: {products.length}</h2>
+      <h2 className="font-medium text-xl">Results</h2>
       <p className="text-sm">
         Check each product page for other buying options.
       </p>

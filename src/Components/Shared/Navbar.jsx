@@ -1,12 +1,20 @@
 import { Link } from "react-router-dom";
-import amazonBrandLogo from "../../assets/logo/amazon-brand-logo.png";
+import amazonBrandLogo from "../../assets/logo/amazon-white-logo.png";
 import CartDrawer from "./CartDrawer";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../Contexts/CartProvider";
 
 const Navbar = () => {
   const { cartProducts } = useContext(CartContext);
   const [isCartSidebarOpen, setIsCartSidebarOpen] = useState(false);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    const total = cartProducts?.reduce((count, cardProduct) => {
+      return (count += cardProduct.quantity);
+    }, 0);
+    setTotal(total);
+  }, [cartProducts]);
 
   const toggleCartSidebar = () => {
     setIsCartSidebarOpen((prevState) => !prevState);
@@ -63,13 +71,13 @@ const Navbar = () => {
           </svg>
         </label>
 
-        <button className="flex items-center gap-1">
+        <Link to="/signup" className="flex items-center gap-1">
           <p className="font-semibold text-sm text-start text-white">
             <small className="font-normal">Hello, sign in</small>
             <br />
             Account & Lists
           </p>
-        </button>
+        </Link>
 
         <button className="flex items-center gap-1">
           <p className="font-semibold text-sm text-start text-white">
@@ -78,7 +86,11 @@ const Navbar = () => {
           </p>
         </button>
 
-        <label onClick={toggleCartSidebar} htmlFor="cart-drawer" className="text-white cursor-pointer">
+        <label
+          onClick={toggleCartSidebar}
+          htmlFor="cart-drawer"
+          className="text-white cursor-pointer"
+        >
           <div className="flex items-end font-medium text-lg">
             <div className="relative">
               <svg
@@ -96,15 +108,17 @@ const Navbar = () => {
                 />
               </svg>
 
-              <div className="h-6 w-6 absolute -top-1 right-1 bg-[#f08804] rounded-full flex justify-center items-center text-sm">
-                {cartProducts.length}
+              <div className="h-6 w-6 absolute -top-1 right-1 bg-[#f08804] text-slate-800 rounded-full flex justify-center items-center text-sm">
+                {total}
               </div>
             </div>
             cart
           </div>
         </label>
       </nav>
-      {isCartSidebarOpen && <CartDrawer toggleCartSidebar={toggleCartSidebar} />}
+      {isCartSidebarOpen && (
+        <CartDrawer toggleCartSidebar={toggleCartSidebar} />
+      )}
     </>
   );
 };
