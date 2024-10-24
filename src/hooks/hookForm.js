@@ -1,16 +1,63 @@
-import { useState } from "react"
+import { useState } from "react";
 
-const useInputState = (defaultValue="") => {
-    const [value, setValue] = useState(defaultValue);
+const useInputState = (defaultFormData) => {
+  const [formData, setFormData] = useState({
+    ...defaultFormData,
+  });
 
-    const onChange = (e) => {
-        setValue(e.target.value);
+  const [error, setError] = useState({});
+  const [success, setSuccess] = useState({});
+
+  const handleInputChange = (e) => {
+    const propertyName = e.target.name;
+    const propertyValue = e.target.value;
+
+    setFormData({
+      ...formData,
+      [propertyName]: propertyValue,
+    });
+  };
+
+  const handleInputBlur = (
+    e,
+    { errorMessage = "", successMessage = "", regex = "" }
+  ) => {
+    const inputValue = e.target.value;
+
+    if (inputValue === "") {
+      setError({
+        ...error,
+        [e.target.name + "ErrorMessage"]: errorMessage,
+      });
+    } else if (regex) {
+      if (regex.test(inputValue)) {
+        if (error[[e.target.name + "ErrorMessage"]]) {
+          console.log("True");
+          delete error[[e.target.name + "ErrorMessage"]];
+          setError({
+              ...error
+          });
+        }
+      } else {
+        setError({
+          ...error,
+          [e.target.name + "ErrorMessage"]: errorMessage,
+        });
+      }
+    } else if (successMessage) {
+      setSuccess({
+        [e.target.name + "successMessage"]: successMessage,
+      });
     }
+  };
 
-    return {
-        value,
-        onChange
-    };
-}
+  return {
+    formData,
+    error,
+    success,
+    handleInputChange,
+    handleInputBlur,
+  };
+};
 
 export default useInputState;

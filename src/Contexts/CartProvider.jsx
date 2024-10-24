@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { addToDB } from "../utilities/cartDB";
 
 export const CartContext = createContext();
 
@@ -21,6 +22,7 @@ const CartProvider = ({ children }) => {
           
         }
         setCartProducts(newCartProducts);
+        addToDB(selectedProduct.id);
     }
 
     const handleRemoveFromCart = (selectedProduct) => {
