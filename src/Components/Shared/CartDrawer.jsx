@@ -1,10 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../Contexts/CartProvider";
 import CartDrawerProduct from "./CartDrawerProduct";
 
-const CartDrawer = ({ toggleCartSidebar }) => {
+const CartDrawer = ({ toggleCartSidebar, subTotal }) => {
   const { cartProducts } = useContext(CartContext);
-  // console.log(cartProducts);
 
   return (
     <div className="drawer drawer-end relative z-[500000]">
@@ -21,7 +20,7 @@ const CartDrawer = ({ toggleCartSidebar }) => {
             <div className="card-body">
               <h2 className="text-lg font-semibold text-center">Sub Total</h2>
               <p className="text-center font-semibold text-[#b12704] text-base">
-                $00.00
+                ${subTotal}
               </p>
               <div className="card-actions justify-center">
                 <button className="border border-gray-700 hover:bg-slate-100 rounded-badge px-3 py-1 text-xs w-full">

@@ -5,8 +5,6 @@ const CartDrawerProduct = ({ cartProduct }) => {
   const {handleRemoveFromCart} = useContext(CartContext);
   const { Image, quantity, Price } = cartProduct;
 
-  // console.log(quantity * Price);
-
   return (
     <div className="card border-y-2 border-gray-200 rounded-none py-3">
       <figure className="mb-1">

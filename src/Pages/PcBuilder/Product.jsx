@@ -24,7 +24,7 @@ const Product = ({ product }) => {
           <img className="w-full" src={Image} alt="Movie" />
         </figure>
         <div className="card-body">
-          <h2 className="text-lg">{`${Name}, ${Processor}, ${Graphics_Processor}, ${Storage}, ${RAM}, ${PowerSupply}, ${Wireless_Connectivity}, ${Operating_System}`}</h2>
+          <h2 className="text-lg font-medium">{`${Name}, ${Processor}, ${Graphics_Processor}, ${Storage}, ${RAM}, ${PowerSupply}, ${Wireless_Connectivity}, ${Operating_System}`}</h2>
 
           <div>
             <h2 className="text-2xl">{Price}</h2>

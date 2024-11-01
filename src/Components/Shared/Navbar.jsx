@@ -8,12 +8,21 @@ const Navbar = () => {
   const { cartProducts } = useContext(CartContext);
   const [isCartSidebarOpen, setIsCartSidebarOpen] = useState(false);
   const [total, setTotal] = useState(0);
+  const [subTotal, setSubTotal] = useState(0.0);
 
   useEffect(() => {
     const total = cartProducts?.reduce((count, cardProduct) => {
       return (count += cardProduct.quantity);
     }, 0);
+
     setTotal(total);
+
+    const totalPrice = cartProducts?.reduce((sum, cartProduct) => {
+      return sum + cartProduct.Price * cartProduct.quantity;
+    }, 0)
+
+    setSubTotal(totalPrice);
+
   }, [cartProducts]);
 
   const toggleCartSidebar = () => {
@@ -117,7 +126,7 @@ const Navbar = () => {
         </label>
       </nav>
       {isCartSidebarOpen && (
-        <CartDrawer toggleCartSidebar={toggleCartSidebar} />
+        <CartDrawer subTotal={subTotal} toggleCartSidebar={toggleCartSidebar} />
       )}
     </>
   );

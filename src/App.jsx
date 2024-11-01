@@ -3,6 +3,8 @@ import Main from "./Layouts/Main";
 import ProductCatalog from "./Pages/PcBuilder/ProductCatalog";
 import Signup from "./Pages/ManageUser/Signup";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -13,6 +15,7 @@ const App = () => {
         </Route>
         <Route path="signup" element={<Signup />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 };
