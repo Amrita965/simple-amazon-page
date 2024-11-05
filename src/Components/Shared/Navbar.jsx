@@ -21,7 +21,7 @@ const Navbar = () => {
       return sum + cartProduct.Price * cartProduct.quantity;
     }, 0)
 
-    setSubTotal(totalPrice);
+    setSubTotal(totalPrice.toFixed(2));
 
   }, [cartProducts]);
 

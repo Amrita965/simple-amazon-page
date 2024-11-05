@@ -11,7 +11,7 @@ const CartDrawerProduct = ({ cartProduct }) => {
         <img className="w-32" src={Image} alt="Shoes" />
       </figure>
       <div className="card-body py-0">
-        <p className="text-center font-semibold mb-2">${quantity * Price}</p>
+        <p className="text-center font-semibold mb-2">${(quantity * Price).toFixed(2)}</p>
         <div className="flex items-center justify-between">
           <select
             defaultValue={quantity}

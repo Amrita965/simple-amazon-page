@@ -33,9 +33,9 @@ const useInputState = (defaultFormData) => {
       if (regex.test(inputValue)) {
         if (error[[e.target.name + "ErrorMessage"]]) {
           console.log("True");
-          delete error[[e.target.name + "ErrorMessage"]];
+          delete error[e.target.name + "ErrorMessage"];
           setError({
-              ...error
+            ...error
           });
         }
       } else {
@@ -44,7 +44,14 @@ const useInputState = (defaultFormData) => {
           [e.target.name + "ErrorMessage"]: errorMessage,
         });
       }
-    } else if (successMessage) {
+    } else {
+      delete error[e.target.name + "ErrorMessage"]
+      setError({
+        ...error
+      })
+    }
+
+    if (successMessage) {
       setSuccess({
         [e.target.name + "successMessage"]: successMessage,
       });
@@ -54,6 +61,7 @@ const useInputState = (defaultFormData) => {
   return {
     formData,
     error,
+    setError,
     success,
     handleInputChange,
     handleInputBlur,
